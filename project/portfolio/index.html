@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Lucille Rapsing | Portfolio</title>
+  <style>
+    /*CSS VARIABLES (3+ custom properties)*/
+    :root {
+      --primary-color: #2c3e66;
+      --primary-dark: #1a2a44;
+      --secondary-color: #4a7c59;
+      --text-color: #1e2a3a;
+      --bg-light: #f8fafc;
+      --bg-offwhite: #f1f5f9;
+      --accent-gradient: linear-gradient(135deg, #2c3e66 0%, #1e4a6e 100%);
+      --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      --border-radius: 12px;
+    }
+
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Smooth scrolling*/
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-color);
+      line-height: 1.5;
+    }
+
+    /* Side navigation (left side) */
+    .side-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100vh;
+      background: var(--primary-dark);
+      backdrop-filter: blur(2px);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      z-index: 1000;
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+      overflow-y: auto;
+    }
+
+    .side-nav a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.85rem 1.2rem;
+      border-radius: 40px;
+      transition: all 0.25s ease;
+      font-size: 1.05rem;
+      letter-spacing: 0.3px;
+      display: block;
+    }
+
+    /* Hover effect for nav links */
+    .side-nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: white;
+      transform: translateX(6px);
+      background: var(--secondary-color);
+    }
+
+    /* Main content (offset for fixed side nav) */
+    .main-content {
+      margin-left: 260px;
+      padding: 2rem 2.5rem;
+    }
+
+    /* Section styles */
+    section,
+    .hero-section,
+    footer {
+      margin-bottom: 3rem;
+      scroll-margin-top: 1rem;
+    }
+
+    .hero-section {
+      background: var(--accent-gradient);
+      padding: 4rem 2rem;
+      border-radius: var(--border-radius);
+      text-align: center;
+      color: white;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-section h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-section .title {
+      font-size: 1.5rem;
+      opacity: 0.92;
+      margin-bottom: 1.8rem;
+      font-weight: 500;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: white;
+      color: var(--primary-color);
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.3);
+      background-color: #fef9e8;
+    }
+
+    /* Card/section containers with flex layout */
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+    }
+
+    h2 {
+      font-size: 2rem;
+      border-left: 6px solid var(--secondary-color);
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    .job-entry {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 1.5rem;
+    }
+
+    .job-entry:last-child {
+      border-bottom: none;
+    }
+
+    .job-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .company {
+      font-weight: 600;
+      color: #4a5568;
+      margin: 0.25rem 0;
+    }
+
+    .date {
+      font-size: 0.9rem;
+      color: #5b6e8c;
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    .job-entry ul {
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .job-entry li {
+      margin: 0.5rem 0;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    .skills-list li {
+      background: var(--bg-offwhite);
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      border: 1px solid #cbd5e1;
+      color: var(--primary-dark);
+    }
+
+    /* Form style */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 0.9rem 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.2s;
+      background-color: white;
+    }
+
+    /*Visible focus state */
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.2);
+    }
+
+    button.submit-btn {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.5rem;
+    }
+
+    button.submit-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(0.98);
+    }
+
+    /* Footer */
+    footer {
+      background: #eef2f6;
+      border-radius: 24px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .footer-nav a {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    .footer-nav a:hover {
+      text-decoration: underline;
+    }
+
+    .text-muted {
+      color: #5b6e8c;
+    }
+
+    /*Media Query (max-width: 768px)*/
+    @media (max-width: 768px) {
+      .side-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.3rem;
+        padding: 0.8rem 1rem;
+        background: var(--primary-dark);
+        z-index: 1100;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .side-nav a {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        border-radius: 40px;
+        white-space: nowrap;
+      }
+
+      .side-nav a:hover {
+        transform: translateY(-2px);
+      }
+
+      .main-content {
+        margin-left: 0;
+        margin-top: 80px;
+        padding: 1.5rem;
+      }
+
+      .hero-section h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-section .title {
+        font-size: 1.2rem;
+      }
+
+      h2 {
+        font-size: 1.7rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .side-nav a {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.7rem;
+      }
+
+      .main-content {
+        padding: 1rem;
+      }
+
+      .card {
+        padding: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Side navigation (6 anchor links) -->
+<nav class="side-nav" aria-label="Main navigation">
+  <a href="#hero">Home</a>
+  <a href="#about">About</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<main class="main-content">
+  <!-- Hero section -->
+  <header id="hero" class="hero-section">
+    <h1>Lucille Rapsing</h1>
+    <p class="title">2nd Year BSIT Student | Aspiring Web Developer</p>
+    <a href="#contact" class="cta-button">📬 Let's Connect →</a>
+  </header>
+
+  <!-- About section -->
+  <section id="about" class="card">
+    <h2>About Me</h2>
+    <p>I am a 2nd year BSIT student who is interested in web development and technology. I enjoy learning how to create websites and improve my programming skills. Even though I do not have work experience yet, I am willing to learn, work hard, and gain new knowledge to improve myself.</p>
+    <p style="margin-top: 0.8rem;">I am currently focusing on learning modern web technologies and building projects to develop my skills as a future developer.</p>
+  </section>
+
+  <!-- Work Experience section -->
+  <section id="experience">
+    <h2>Work Experience</h2>
+    <div class="card">
+      <div class="job-entry">
+        <div class="job-title">BSIT Student</div>
+        <div class="company">University of Eastern Philippines</div>
+        <div class="date">2026 – Present</div>
+        <ul>
+          <li>Currently a 2nd year BSIT student learning web development and programming fundamentals.</li>
+          <li>Experienced in creating simple projects using HTML, CSS, and JavaScript for school activities and practice.</li>
+          <li>Eager to improve technical skills, learn new technologies, and gain real-world experience in the IT field.</li>
+        </ul>
+      </div>
+      <div class="job-entry">
+        <div class="job-title">BSIT Student Developer</div>
+        <div class="company">University of Eastern Philippines</div>
+        <div class="date">2026 – Present</div>
+        <ul>
+          <li>Currently a 2nd year BSIT student learning basic web development and programming.</li>
+          <li>Created simple school and personal projects using HTML, CSS, and JavaScript to improve coding skills.</li>
+          <li>Continuously practicing problem-solving, website design, and learning new technologies related to web development.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education section -->
+  <section id="education" class="card">
+    <h2>Education</h2>
+    <div>
+      <p style="font-weight: 700; font-size: 1.2rem;">Bachelor of Science in Information Technology</p>
+      <p>University of Eastern Philippines</p>
+      <p class="text-muted">Expected Graduation: 2028 | 2nd Year Standing</p>
+      <p style="margin-top: 0.5rem;">Relevant coursework: Web Development, Programming Logic, Database Management, UI/UX Fundamentals.</p>
+    </div>
+  </section>
+
+  <!-- Skills section (id="skills") -->
+  <section id="skills" class="card">
+    <h2>Technical Skills</h2>
+    <ul class="skills-list">
+      <li>Basic HTML & CSS</li>
+      <li>Basic JavaScript</li>
+      <li>Responsive Web Design</li>
+      <li>Git & GitHub (Beginner)</li>
+      <li>Willing to learn new technologies</li>
+      <li>Eager to improve web development skills</li>
+    </ul>
+  </section>
+
+  <!--Contact section-->
+  <section id="contact" class="card">
+    <h2>Get In Touch</h2>
+    <form id="portfolioContactForm" class="contact-form">
+      <div class="form-group">
+        <label for="fullname">Full Name *</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Lucille Rapsing" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" placeholder="lucillerapsing@gmail.com" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="+63 912 345 6789">
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject *</label>
+        <input type="text" id="subject" name="subject" placeholder="Collaboration / Project inquiry" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" rows="4" placeholder="Hi Lucille! I'd love to connect with you..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Message ✨</button>
+    </form>
+    <p id="formFeedback" style="margin-top: 1rem; font-size: 0.9rem;"></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-nav">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p>© 2026 Lucille Rapsing — Built with HTML/CSS & Flexbox. All rights reserved.</p>
+  </footer>
+</main>
+
+<script>
+  (function() {
+    const form = document.getElementById('portfolioContactForm');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const feedback = document.getElementById('formFeedback');
+        feedback.textContent = '✅ Thank you, Lucille will get back to you soon! (Demo)';
+        feedback.style.color = '#2c6e2f';
+        setTimeout(() => {
+          feedback.textContent = '';
+        }, 3000);
+        form.reset();
+      });
+    }
+  })();
+</script>
+</body>
+</html>
